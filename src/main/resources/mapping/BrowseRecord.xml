@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.poetryappreciation.mapper.BrowseRecordMapper">
+
+    <select id="queryBrowseRecordList" resultType="java.util.Map">
+        select
+            a.`user` as `user`,
+            a.browse_time as browseTime,
+            a.poetry_id as poetryId,
+            b.`name` as `name`
+        from
+            browse_record a, poetry b
+        where
+            a.poetry_id = b.id
+        <if test="loginName!=null and loginName!=''">
+            and a.user = #{loginName}
+        </if>
+        order by a.browse_time desc
+    </select>
+
+
+</mapper>

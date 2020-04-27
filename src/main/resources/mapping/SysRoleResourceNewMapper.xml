@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.poetryappreciation.mapper.SysRoleResourceNewMapper">
+
+
+    <select id="getRoleMenu" resultType="java.util.Map">
+        SELECT
+            a.id AS id,
+            a.name AS name,
+            a.url AS url,
+            a.pid AS pid,
+            a.orderNum AS orderNum,
+            c.`function` AS `function`,
+            c.functionName AS functionName,
+            a.descn AS descn
+        FROM
+            sys_resource_new a,
+            sys_role_resource_new b,
+            sys_resource_function c
+        WHERE
+            b.resourceId = a.id
+          AND b.functionId = c.id
+          AND c.isDel = 1
+
+        <if test="roleId!=null and roleId!=''">
+            and b.roleId = #{roleId}
+        </if>
+
+        <if test="resourceId!=null and resourceId!=''">
+            and b.resourceId = #{resourceId}
+        </if>
+
+    </select>
+
+</mapper>

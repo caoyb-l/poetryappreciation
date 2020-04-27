@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.poetryappreciation.mapper.UserCollectionMapper">
+
+    <select id="queryCollectionList" resultType="java.util.Map">
+        SELECT
+            a.`user` AS USER,
+            a.poetry_id AS publishId,
+            b.`name` AS NAME,
+            a.collection_time AS collectionTime
+        FROM
+            user_collection a,
+            poetry b
+        WHERE
+            a.poetry_id = b.id
+        <if test="loginName!=null and loginName!=''">
+            and a.user = #{loginName}
+        </if>
+
+
+    </select>
+
+
+</mapper>
